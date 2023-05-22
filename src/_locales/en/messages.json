@@ -1,0 +1,8 @@
+{
+  "appName": {
+    "message": "CPGPT - Competitive Programming Assistant"
+  },
+  "appDesc": {
+    "message": "An competitive programming assistant using ChatGPT."
+  }
+}
