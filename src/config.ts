@@ -7,10 +7,10 @@ export enum TriggerMode {
 }
 
 export const TRIGGER_MODE_TEXT = {
-  [TriggerMode.Always]: { title: 'Always', desc: 'CPGPT is queried on every search' },
+  [TriggerMode.Always]: { title: 'Always', desc: 'CPBard is queried on every search' },
   [TriggerMode.Manually]: {
     title: 'Manually',
-    desc: 'CPGPT is queried when you manually click a button',
+    desc: 'CPBard is queried when you manually click a button',
   },
 }
 
@@ -33,15 +33,10 @@ export enum Language {
 }
 
 export const Prompt =
-  'Imagine you are a mathematician and a competitive programmer. First summarise the story of the following into a short problem statement(just focus on mathematical part while summarizing, ignore the proper nouns and story around them).\
- Next, suggest 3 different algorithms for this problem in decreasing order of time complexity.\
- Next, for each of the 3 algorithms calculate numeric value of the number of operations needed to compute the result at maximum values of all the variables in problem statement.\
- Next, for each of the 3 algorithms mention the space complexity as well.\
- Next, suggest 3-4 general problems which makes use of similar concept.\
- Next, suggest 3-4 similar problems on any competitive programming platforms.\
+  'Suggest 3 different algorithms for this problem in decreasing order of time complexity.\
  Next, suggest 3-4 relevant papers(with publishing year) related to this algorithm.\
  Here is the full story of the problem:\
- '
+'
 
 export interface SitePrompt {
   site: string
@@ -71,6 +66,7 @@ export async function updateUserConfig(updates: Partial<UserConfig>) {
 export enum ProviderType {
   ChatGPT = 'chatgpt',
   GPT3 = 'gpt3',
+  BARD = 'bard',
 }
 
 interface GPT3ProviderConfig {
@@ -81,18 +77,18 @@ interface GPT3ProviderConfig {
 export interface ProviderConfigs {
   provider: ProviderType
   configs: {
-    [ProviderType.GPT3]: GPT3ProviderConfig | undefined
+    [ProviderType.BARD]: GPT3ProviderConfig | undefined
   }
 }
 
 export async function getProviderConfigs(): Promise<ProviderConfigs> {
-  const { provider = ProviderType.ChatGPT } = await Browser.storage.local.get('provider')
-  const configKey = `provider:${ProviderType.GPT3}`
+  const { provider = ProviderType.BARD } = await Browser.storage.local.get('provider')
+  const configKey = `provider:${ProviderType.BARD}`
   const result = await Browser.storage.local.get(configKey)
   return {
     provider,
     configs: {
-      [ProviderType.GPT3]: result[configKey],
+      [ProviderType.BARD]: result[configKey],
     },
   }
 }
