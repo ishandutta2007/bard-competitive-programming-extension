@@ -146,6 +146,21 @@ async function run() {
         }
       }
     }
+    // else if (siteName == 'leetcode') {
+    //   // console.log("location.href", location.href)
+    //   if ( location.href.includes("leetcode.com/problems/") ) {
+    //       console.log("location.href", location.href)
+    //     Browser.notifications.create(
+    //       "leetcode_not_working",
+    //       {
+    //         type: "basic",
+    //         // iconUrl: "log.png",
+    //         title: "Please reload and make sure you are logged in",
+    //         message: "hello there!"
+    //       },()=>{console.log("notification done")}
+    //     );
+    //   }
+    // }
 
     if (bodyElement && bodyElement.textContent) {
       const bodyInnerText = bodyElement.textContent.trim().replace(/\s+/g, ' ').substring(0, 1500)
