@@ -3,6 +3,7 @@ import '../base.css'
 import { getUserConfig, Theme } from '../config'
 import { detectSystemColorScheme } from '../utils'
 import ChatGPTContainer from './ChatGPTContainer'
+import Global from './Global'
 import { config, SearchEngine } from './search-engine-configs'
 import './styles.scss'
 import { getPossibleElementByQuerySelector } from './utils'
@@ -37,10 +38,18 @@ async function mount(question: string, promptSource: string, siteConfig: SearchE
     }
   }
   console.debug('question:', question)
+  const contextIds = Global.contextIds //[ids[0], ids[1], ids[2]]
+  const requestParams = {}
+  requestParams.atValue = Global.atValue //ids[3]
+  requestParams.blValue = Global.blValue //ids[4]
+  console.log('contextIds', contextIds)
+  console.log('requestParams', requestParams)
 
   render(
     <ChatGPTContainer
       question={question}
+      contextIds={contextIds}
+      requestParams={requestParams}
       promptSource={promptSource}
       triggerMode={userConfig.triggerMode || 'always'}
     />,

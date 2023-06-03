@@ -7,6 +7,7 @@ import Browser from 'webextension-polyfill'
 import { captureEvent } from '../analytics'
 import { Answer } from '../messaging'
 import ChatGPTFeedback from './ChatGPTFeedback'
+import Global from './Global'
 import { isBraveBrowser, shouldShowRatingTip } from './utils.js'
 
 export type QueryStatus = 'success' | 'error' | undefined
@@ -60,12 +61,34 @@ function ChatGPTQuery(props: Props) {
       }
     }
     port.onMessage.addListener(listener)
-    port.postMessage({ question: props.question })
+    Global.done = false
+    if (
+      (props.contextIds && props.contextIds.length > 0) ||
+      (props.requestParams &&
+        (props.requestParams.atValue != '0' || props.requestParams.blValue != '0'))
+    ){
+      port.postMessage({
+        question: props.question,
+        contextIds: props.contextIds,
+        requestParams: props.requestParams,
+      })
+    } else {
+      port.postMessage({ question: props.question })
+    }
     return () => {
       port.onMessage.removeListener(listener)
       port.disconnect()
     }
   }, [props.question, retry])
+
+  if (answer?.conversationContext) {
+    console.log('answer=', answer)
+    Global.contextIds = answer.conversationContext.contextIds
+    Global.atValue = answer.conversationContext.requestParams.atValue
+    Global.blValue = answer.conversationContext.requestParams.blValue
+    console.log('DONE')
+    Global.done = true
+  }
 
   // retry error on focus
   useEffect(() => {
