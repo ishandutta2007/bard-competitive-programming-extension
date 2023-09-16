@@ -63,5 +63,9 @@
       "npx prettier --write",
       "npx eslint --fix"
     ]
+  },
+  "engines": {
+    "node": ">=16.15.0 <17.0.0",
+    "npm" : ">=8.19.4 <9.0.0"
   }
 }
