@@ -64,8 +64,6 @@ export async function updateUserConfig(updates: Partial<UserConfig>) {
 }
 
 export enum ProviderType {
-  ChatGPT = 'chatgpt',
-  GPT3 = 'gpt3',
   BARD = 'bard',
 }
 

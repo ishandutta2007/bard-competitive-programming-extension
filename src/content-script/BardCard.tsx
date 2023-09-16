@@ -1,7 +1,7 @@
 import { SearchIcon } from '@primer/octicons-react'
 import { useState } from 'preact/hooks'
 import { TriggerMode } from '../config'
-import ChatGPTQuery, { QueryStatus } from './ChatGPTQuery'
+import BardQuery, { QueryStatus } from './BardQuery'
 
 interface Props {
   question: string
@@ -10,14 +10,14 @@ interface Props {
   onStatusChange?: (status: QueryStatus) => void
 }
 
-function ChatGPTCard(props: Props) {
+function BardCard(props: Props) {
   const [triggered, setTriggered] = useState(false)
 
   if (props.triggerMode === TriggerMode.Always) {
-    return <ChatGPTQuery {...props} />
+    return <BardQuery {...props} />
   }
   if (triggered) {
-    return <ChatGPTQuery {...props} />
+    return <BardQuery {...props} />
   }
   return (
     <p className="icon-and-text cursor-pointer" onClick={() => setTriggered(true)}>
@@ -26,4 +26,4 @@ function ChatGPTCard(props: Props) {
   )
 }
 
-export default ChatGPTCard
+export default BardCard

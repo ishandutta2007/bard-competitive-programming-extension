@@ -6,7 +6,7 @@ import rehypeHighlight from 'rehype-highlight'
 import Browser from 'webextension-polyfill'
 import { captureEvent } from '../analytics'
 import { Answer } from '../messaging'
-import ChatGPTFeedback from './ChatGPTFeedback'
+import BardFeedback from './BardFeedback'
 import Global from './Global'
 import { isBraveBrowser, shouldShowRatingTip } from './utils.js'
 
@@ -16,6 +16,8 @@ interface Props {
   question: string
   promptSource: string
   onStatusChange?: (status: QueryStatus) => void
+  contextIds?: string[]
+  requestParams: { atValue: string; blValue: string }
 }
 
 interface Requestion {
@@ -28,7 +30,7 @@ interface ReQuestionAnswerProps {
   latestAnswerText: string | undefined
 }
 
-function ChatGPTQuery(props: Props) {
+function BardQuery(props: Props) {
   const inputRef = useRef<HTMLInputElement>(null)
   const [answer, setAnswer] = useState<Answer | null>(null)
   const [error, setError] = useState('')
@@ -66,7 +68,7 @@ function ChatGPTQuery(props: Props) {
       (props.contextIds && props.contextIds.length > 0) ||
       (props.requestParams &&
         (props.requestParams.atValue != '0' || props.requestParams.blValue != '0'))
-    ){
+    ) {
       port.postMessage({
         question: props.question,
         contextIds: props.contextIds,
@@ -201,7 +203,7 @@ function ChatGPTQuery(props: Props) {
             <GearIcon size={14} />
           </span>
           <span className="mx-2 text-base text-gray-500">{`"${props.promptSource}" prompt is used`}</span>
-          <ChatGPTFeedback
+          <BardFeedback
             messageId={answer.messageId}
             conversationId={answer.conversationId}
             latestAnswerText={answer.text}
@@ -296,4 +298,4 @@ function ChatGPTQuery(props: Props) {
   return <p className="text-[#b6b8ba] animate-pulse">Waiting for BARD to summarize...</p>
 }
 
-export default memo(ChatGPTQuery)
+export default memo(BardQuery)

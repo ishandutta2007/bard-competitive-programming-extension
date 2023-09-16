@@ -2,7 +2,7 @@ import { render } from 'preact'
 import '../base.css'
 import { getUserConfig, Theme } from '../config'
 import { detectSystemColorScheme } from '../utils'
-import ChatGPTContainer from './ChatGPTContainer'
+import BardContainer from './BardContainer'
 import Global from './Global'
 import { config, SearchEngine } from './search-engine-configs'
 import './styles.scss'
@@ -46,7 +46,7 @@ async function mount(question: string, promptSource: string, siteConfig: SearchE
   console.log('requestParams', requestParams)
 
   render(
-    <ChatGPTContainer
+    <BardContainer
       question={question}
       contextIds={contextIds}
       requestParams={requestParams}
@@ -90,7 +90,7 @@ const siteName = location.hostname.match(siteRegex)![0]
 const siteConfig = config[siteName]
 
 async function run() {
-  console.debug('Try to Mount ChatGPT on', siteName)
+  console.debug('Try to Mount Bard on', siteName)
 
   if (siteConfig.bodyQuery) {
     const bodyElement = getPossibleElementByQuerySelector(siteConfig.bodyQuery)
@@ -185,7 +185,7 @@ if (siteConfig.watchRouteChange) {
 }
 
 async function run_again() {
-  console.debug('Try again to Mount ChatGPT on', siteName)
+  console.debug('Try again to Mount Bard on', siteName)
   if (siteConfig.bodyQuery) {
     const bodyElement = getPossibleElementByQuerySelector(siteConfig.bodyQuery)
     console.debug('bodyElement again', bodyElement)

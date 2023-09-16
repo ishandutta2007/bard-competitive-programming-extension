@@ -137,8 +137,6 @@ export class BARDProvider implements Provider {
         data: {
           text,
           // messageId: 'datamessage.id',
-          // conversationId: 'dataconversation_id',
-          // parentMessageId: 'dataparent_message_id',
           conversationContext: this.conversationContext,
         },
       })
